@@ -1,0 +1,27 @@
+name: Docker Build and Kubernetes Validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t kubernetes-ci-cd-api:test .
+
+      - name: Validate Kubernetes deployment file
+        run: kubectl apply --dry-run=client -f k8s/deployment.yaml
+
+      - name: Validate Kubernetes service file
+        run: kubectl apply --dry-run=client -f k8s/service.yaml
