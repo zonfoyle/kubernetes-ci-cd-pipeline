@@ -180,7 +180,7 @@ kubernetes-ci-cd-pipeline/
 
 ### Docker Desktop Kubernetes Dashboard
 
-![Docker Desktop Kubernetes Dashboard](screenshots/docker-desktop-kubernetes-ci-cd.png)
+![Docker Desktop Kubernetes Dashboard](screenshots/kubernetes-ci-cd-dashboard.png)
 
 ## Tradeoffs and Lessons Learned
 
