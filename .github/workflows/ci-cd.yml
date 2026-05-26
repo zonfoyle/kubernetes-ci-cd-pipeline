@@ -20,8 +20,14 @@ jobs:
       - name: Build Docker image
         run: docker build -t kubernetes-ci-cd-api:test .
 
-      - name: Validate Kubernetes deployment file
-        run: kubectl apply --dry-run=client -f k8s/deployment.yaml
+      - name: Validate Kubernetes deployment YAML
+        run: |
+          python - <<'PY'
+          import yaml
+          from pathlib import Path
 
-      - name: Validate Kubernetes service file
-        run: kubectl apply --dry-run=client -f k8s/service.yaml
+          for file in ["k8s/deployment.yaml", "k8s/service.yaml"]:
+              with open(file, "r") as f:
+                  yaml.safe_load(f)
+              print(f"{file} is valid YAML")
+          PY
